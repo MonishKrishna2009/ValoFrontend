@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valo Scrimish Overlay</title>
+    <style>
+        @font-face { 
+            font-family: 'Anton';
+            src: url('/assets/fonts/Anton/Anton-Regular.ttf') format('truetype');
+        }
+        @font-face { 
+            font-family: 'DIN Next W1G Medium';
+            src: url('/assets/fonts/DINNextW1G/dinnextw1g_medium.otf') format('opentype');
+        }
+        @font-face { 
+            font-family: 'Tungsten';
+            src: url('/assets/fonts/Tungsten/Tungsten-Bold.ttf') format('truetype');
+        }
+        @font-face { 
+            font-family: 'Replica';
+            src: url('/assets/fonts/Replica/Replica-Bold.ttf') format('truetype');
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            position: relative;
+            background: transparent;
+        }
+        
+        /* EXACT Spectra positioning */
+        .topscore {
+            position: absolute;
+            width: 601px;
+            height: 143px;
+            top: -1px;
+            left: 659px;
+        }
+        
+        .topscore-container {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 9px;
+            position: absolute;
+            top: 5px;
+            left: 0;
+        }
+        
+        .round-numberBox {
+            position: absolute;
+            top: 4%;
+            left: 42%;
+            width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .round-number {
+            font-family: 'DIN Next W1G Medium', Helvetica;
+            color: #fefeff99;
+            font-size: 15px;
+            text-align: center;
+            letter-spacing: 4px;
+            line-height: normal;
+        }
+        
+        .top-score-box {
+            height: 157px;
+            position: relative;
+        }
+        
+        .top-score {
+            width: 650px;
+            height: 200px;
+            position: absolute;
+            left: -26px;
+            top: -13px;
+            overflow: hidden;
+        }
+        
+        .team-card-bg-left {
+            width: 34.35%;
+            height: 38.22%;
+            position: absolute;
+            right: 0.19%;
+            left: 65.45%;
+            bottom: 53.5%;
+            top: 8.28%;
+            overflow: visible;
+        }
+        
+        .team-card-bg-right {
+            width: 34.36%;
+            height: 38.22%;
+            position: absolute;
+            right: 65.44%;
+            left: 0.19%;
+            bottom: 53.5%;
+            top: 8.28%;
+            overflow: visible;
+        }
+        
+        .scoreblock-left {
+            width: 11.01%;
+            height: 38.22%;
+            position: absolute;
+            right: 65.45%;
+            left: 23.54%;
+            bottom: 53.5%;
+            top: 8.28%;
+            overflow: visible;
+        }
+        
+        .scoreblock-right {
+            width: 11.01%;
+            height: 38.22%;
+            position: absolute;
+            right: 23.54%;
+            left: 65.45%;
+            bottom: 53.5%;
+            top: 8.28%;
+            overflow: visible;
+        }
+        
+        .stoke-left {
+            width: 0.65%;
+            height: 30%;
+            position: absolute;
+            right: 76.46%;
+            left: 22.89%;
+            bottom: 53.5%;
+            top: 12%;
+            overflow: visible;
+        }
+        
+        .stoke-right {
+            width: 0.65%;
+            height: 30%;
+            position: absolute;
+            right: 22.89%;
+            left: 76.38%;
+            bottom: 53.5%;
+            top: 12%;
+            overflow: visible;
+        }
+        
+        /* Graphics vectors */
+        .vector4 {
+            width: 27.92%;
+            height: 14.01%;
+            position: absolute;
+            right: 36.04%;
+            left: 36.04%;
+            bottom: 43.31%;
+            top: 38.9%;
+            overflow: visible;
+        }
+        
+        .vector5 {
+            width: 0.97%;
+            height: 0.64%;
+            position: absolute;
+            right: 95.94%;
+            left: 3.08%;
+            bottom: 94.27%;
+            top: 8.7%;
+            overflow: visible;
+        }
+        
+        .vector6 {
+            width: 24.68%;
+            height: 0.64%;
+            position: absolute;
+            right: 71.27%;
+            left: 4.06%;
+            bottom: 94.27%;
+            top: 8.7%;
+            overflow: visible;
+        }
+        
+        .vector7 {
+            width: 0.97%;
+            height: 0.64%;
+            position: absolute;
+            right: 70.29%;
+            left: 28.73%;
+            bottom: 94.27%;
+            top: 8.7%;
+            overflow: visible;
+        }
+        
+        .vector8 {
+            width: 0.97%;
+            height: 0.64%;
+            position: absolute;
+            right: 28.73%;
+            left: 70.29%;
+            bottom: 94.27%;
+            top: 8.7%;
+            overflow: visible;
+        }
+        
+        .vector9 {
+            width: 24.68%;
+            height: 0.64%;
+            position: absolute;
+            right: 4.06%;
+            left: 71.27%;
+            bottom: 94.27%;
+            top: 8.7%;
+            overflow: visible;
+        }
+        
+        .vector10 {
+            width: 0.97%;
+            height: 0.64%;
+            position: absolute;
+            right: 3.08%;
+            left: 95.94%;
+            bottom: 94.27%;
+            top: 8.7%;
+            overflow: visible;
+        }
+        
+        .vector11 {
+            width: 37.99%;
+            height: 51.59%;
+            position: absolute;
+            right: 31.01%;
+            left: 31.01%;
+            bottom: 43.31%;
+            top: 4.7%;
+            overflow: visible;
+        }
+        
+        .vector15 {
+            width: 57.31%;
+            height: 56.19%;
+            position: absolute;
+            right: 21.5%;
+            left: 21.5%;
+            bottom: 43.81%;
+            top: -0.3%;
+            overflow: visible;
+        }
+        
+        /* Team code box - EXACT Spectra positioning */
+        .teamcodeBox-0 {
+            position: absolute;
+            width: 75px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            top: 27px;
+            left: 15px;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .teamcodeBox-1 {
+            position: absolute;
+            width: 75px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            top: 27px;
+            left: 505px;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .teamcode {
+            position: relative;
+            width: fit-content;
+            margin-top: -1.21px;
+            font-family: 'Anton', sans-serif;
+            font-weight: 500;
+            color: #ffffff;
+            font-size: 28px;
+            text-align: center;
+            letter-spacing: -0.48px;
+            line-height: normal;
+            white-space: nowrap;
+        }
+        
+        .teamcode-0 {
+            position: relative;
+            width: fit-content;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tungsten', 'Anton', sans-serif;
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 32px;
+            text-align: center;
+            letter-spacing: -0.48px;
+            line-height: 1;
+            white-space: nowrap;
+        }
+        
+        .teamcode-1 {
+            position: relative;
+            width: fit-content;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tungsten', 'Anton', sans-serif;
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 32px;
+            text-align: center;
+            letter-spacing: -0.48px;
+            line-height: 1;
+            white-space: nowrap;
+        }
+        
+        /* Score boxes - EXACT positioning */
+        .teamscoreBox-0 {
+            position: absolute;
+            width: 55px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 39px;
+            left: 158px;
+        }
+        
+        .teamscoreBox-1 {
+            position: absolute;
+            width: 55px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 39px;
+            left: 440px;
+        }
+        
+        .score-text {
+            position: relative;
+            width: fit-content;
+            text-shadow: 0px 3px 8px rgba(0, 0, 0, 0.5), 0px 1px 3px rgba(0, 0, 0, 0.3);
+            font-family: 'Anton', sans-serif;
+            font-weight: 900;
+            color: #ffffff;
+            font-size: 48px;
+            text-align: center;
+            line-height: normal;
+            letter-spacing: 2px;
+        }
+        
+        .score-text-0 {
+            position: relative;
+            width: fit-content;
+            text-shadow: 0px 3px 8px rgba(0, 0, 0, 0.5), 0px 1px 3px rgba(0, 0, 0, 0.3);
+            font-family: 'Anton', sans-serif;
+            font-weight: 900;
+            color: #ffffff;
+            font-size: 48px;
+            text-align: center;
+            line-height: normal;
+            letter-spacing: 2px;
+        }
+        
+        .score-text-1 {
+            position: relative;
+            width: fit-content;
+            text-shadow: 0px 3px 8px rgba(0, 0, 0, 0.5), 0px 1px 3px rgba(0, 0, 0, 0.3);
+            font-family: 'Anton', sans-serif;
+            font-weight: 900;
+            color: #ffffff;
+            font-size: 48px;
+            text-align: center;
+            line-height: normal;
+            letter-spacing: 2px;
+        }
+        
+        .flip {
+            transform: rotate(180deg);
+        }
+        
+        /* Event name */
+        .event-name-container {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 25px;
+            min-width: 278px;
+            width: fit-content;
+            left: 1320px;
+            top: 0;
+            z-index: 200;
+        }
+        
+        .event-name-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 0;
+            object-fit: contain;
+        }
+        
+        .event-name-text {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            text-align: center;
+            font-family: 'DIN Next W1G Medium', Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 12px;
+        }
+        
+        .attribution-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            font-family: 'DIN Next W1G Medium', Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .attribution-icon {
+            height: 18px;
+            width: auto;
+            margin-right: 6px;
+        }
+        
+        .attribution-text-part {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="topscore">
+        <div class="topscore-container">
+            <div class="top-score-box">
+                <div class="top-score">
+                    <!-- Team card backgrounds -->
+                    <img class="team-card-bg-left" src="/assets/topscore/teamCardBg.svg" />
+                    <img class="team-card-bg-right" src="/assets/topscore/teamCardBg.svg" />
+                    
+                    <!-- Graphics -->
+                    <img class="vector4" src="/assets/topscore/overlay2.svg" />
+                    <img class="vector5" src="/assets/topscore/overlay3.svg" />
+                    <img class="vector6" src="/assets/topscore/overlay4.svg" />
+                    <img class="vector7" src="/assets/topscore/overlay3.svg" />
+                    <img class="vector8" src="/assets/topscore/overlay3.svg" />
+                    <img class="vector9" src="/assets/topscore/overlay4.svg" />
+                    <img class="vector10" src="/assets/topscore/overlay3.svg" />
+                    
+                    <!-- Empty vector11 area (no logo) -->
+                    <img class="vector11" src="/assets/topscore/overlay9.svg" />
+                    
+                    <img class="vector15" src="/assets/topscore/overlay1.svg" />
+                    
+                    <!-- Score blocks -->
+                    <img class="scoreblock-left" id="scoreblockLeft" src="/assets/topscore/green.svg" />
+                    <img class="scoreblock-right flip" id="scoreblockRight" src="/assets/topscore/red.svg" />
+                    <img class="stoke-left" id="stokeLeft" src="/assets/topscore/greenStroke.svg" />
+                    <img class="stoke-right" id="stokeRight" src="/assets/topscore/redStroke.svg" />
+                    
+                    <!-- Team 1 (left side) - NO LOGO, just tricode -->
+                    <div class="teamcodeBox-0">
+                        <div class="teamcode-0" id="team1Name">DRAKE</div>
+                    </div>
+                    <div class="teamscoreBox-0">
+                        <div class="score-text-0" id="team1Score">0</div>
+                    </div>
+                    
+                    <!-- Team 2 (right side) - NO LOGO, just tricode -->
+                    <div class="teamcodeBox-1">
+                        <div class="teamcode-1" id="team2Name">TEAM 2</div>
+                    </div>
+                    <div class="teamscoreBox-1">
+                        <div class="score-text-1" id="team2Score">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Round Number -->
+        <div class="round-numberBox">
+            <div class="round-number" id="roundNumber">ROUND 0</div>
+        </div>
+    </div>
+    
+    <!-- Event Name -->
+    <div class="event-name-container" id="eventNameContainer">
+        <img class="event-name-bg" src="/assets/topscore/topinfo/eventName.svg" alt="">
+        <div id="eventNameText" class="event-name-text">Scrimish Match</div>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        
+        socket.on('match_update', (state) => {
+            updateOverlay(state);
+        });
+        
+        // Initialize font sizes on page load
+        window.addEventListener('load', () => {
+            const team1NameEl = document.getElementById('team1Name');
+            const team2NameEl = document.getElementById('team2Name');
+            adjustFontSize(team1NameEl, 75, 32);
+            adjustFontSize(team2NameEl, 75, 32);
+        });
+        
+        function adjustFontSize(element, maxWidth, baseSize) {
+            const text = element.textContent;
+            const length = text.length;
+            
+            if (length <= 5) {
+                element.style.fontSize = `${baseSize}px`;
+            } else if (length <= 7) {
+                element.style.fontSize = `${baseSize * 0.95}px`;
+            } else if (length <= 9) {
+                element.style.fontSize = `${baseSize * 0.85}px`;
+            } else if (length <= 11) {
+                element.style.fontSize = `${baseSize * 0.75}px`;
+            } else {
+                element.style.fontSize = `${baseSize * 0.65}px`;
+            }
+        }
+        
+        function updateOverlay(state) {
+            // Update team names
+            const team1NameEl = document.getElementById('team1Name');
+            const team2NameEl = document.getElementById('team2Name');
+            
+            team1NameEl.textContent = state.team1Name.toUpperCase();
+            team2NameEl.textContent = state.team2Name.toUpperCase();
+            
+            // Adjust font sizes dynamically based on text length
+            adjustFontSize(team1NameEl, 65, 32);
+            adjustFontSize(team2NameEl, 65, 32);
+            
+            // Update scores
+            document.getElementById('team1Score').textContent = state.team1Score;
+            document.getElementById('team2Score').textContent = state.team2Score;
+            
+            // Update round number
+            document.getElementById('roundNumber').textContent = `ROUND ${state.roundNumber}`;
+            
+            // Update colors based on sides
+            const scoreblockLeft = document.getElementById('scoreblockLeft');
+            const scoreblockRight = document.getElementById('scoreblockRight');
+            const stokeLeft = document.getElementById('stokeLeft');
+            const stokeRight = document.getElementById('stokeRight');
+            
+            if (state.team1IsAttacking) {
+                scoreblockLeft.src = '/assets/topscore/red.svg';
+                scoreblockRight.src = '/assets/topscore/green.svg';
+                stokeLeft.src = '/assets/topscore/redStroke.svg';
+                stokeRight.src = '/assets/topscore/greenStroke.svg';
+            } else {
+                scoreblockLeft.src = '/assets/topscore/green.svg';
+                scoreblockRight.src = '/assets/topscore/red.svg';
+                stokeLeft.src = '/assets/topscore/greenStroke.svg';
+                stokeRight.src = '/assets/topscore/redStroke.svg';
+            }
+            
+            // Update event name
+            const eventNameText = document.getElementById('eventNameText');
+            if (state.showSpectraAttribution) {
+                eventNameText.className = 'attribution-content';
+                eventNameText.innerHTML = `
+                    <img src="/assets/apatite.png" class="attribution-icon" alt="Apatite Icon">
+                    <span class="attribution-text-part">POWERED BY APATITE</span>
+                `;
+            } else {
+                eventNameText.className = 'event-name-text';
+                eventNameText.textContent = state.eventName.toUpperCase();
+            }
+        }
+    </script>
+</body>
+</html>

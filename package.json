@@ -1,0 +1,19 @@
+{
+  "name": "valo-scrimish-overlay",
+  "version": "1.0.0",
+  "description": "Valorant Scrimish Overlay with manual score control",
+  "scripts": {
+    "start": "bun run server.js",
+    "dev": "bun --watch server.js",
+    "install-bun": "curl -fsSL https://bun.sh/install | bash"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
+
